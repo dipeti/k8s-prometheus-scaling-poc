@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sportsbook-api
+  name: sb-api
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/probe: "true"
+    prometheus.io/port: "8080"
+    prometheus.io/path: "/actuator/prometheus"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sportsbook-api
+  template:
+    metadata:
+      labels:
+        app: sportsbook-api
+    spec:
+      containers:
+      - image: sportsbook-api
+        name: sportsbook-api
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sb-api
+  labels:
+    app: sportsbook-api
+spec:
+  type: NodePort
+  ports:
+    - name: web
+      port: 8080
+      nodePort: 30901
+  selector:
+    app: sportsbook-api
+

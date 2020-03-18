@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: sb-api
+  labels:
+    group: sportsbook
+spec:
+  selector:
+    matchLabels:
+      app: sportsbook-api
+  podMetricsEndpoints:
+  - port: web
+  - path: '/actuator/prometheus'
+
