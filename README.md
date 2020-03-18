@@ -156,7 +156,7 @@ We are going to hit the `/api` endpoint 200 times with 10 concurrent workers
 You can observe the metrics projected in a graph for each pod by executing this query: 
 `sum(rate(http_server_requests_seconds_count{uri="/api"}[1m]))by (pod,uri)`
 
-![Prometheus Graph](prometheus-1.png "Prometheus-graph")
+![Prometheus Graph](prometheus-1-small.jpg "Prometheus-graph")
 
 #### 11. Scale the API instances based on the number of requests
 We are going to use KEDA short for Kubernetes-based Event Driven Autoscaler. 
